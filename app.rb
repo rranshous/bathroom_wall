@@ -24,15 +24,18 @@ class Graffiti < Sequel::Model
   def to_h
     { body: body,
       headers: headers,
+      url: url,
       timestamp: created_at.to_i }
   end
 end
 
 get '/' do
+  content_type :json
   Graffiti.all.map(&:to_h).to_json
 end
 
 post '/:url' do
+  content_type :json
   request.body.rewind
   body = request.body.read
   headers = request_headers.to_json
