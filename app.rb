@@ -8,10 +8,15 @@ migration "create graffiti table" do
     primary_key :id
     text        :body
     text        :url
-    text        :headers
     timestamp   :created_at
 
     index :url, :unique => false
+  end
+end
+
+migration "store headers on graffiti" do
+  database.alter_table :graffitis do
+    add_column :headers, :text
   end
 end
 
@@ -46,6 +51,6 @@ end
 
 helpers do
   def request_headers
-    env.inject({}){|acc, (k,v)| acc[$1.upcase] = v if k =~ /^http_(.*)/i; acc}
+    env.inject({}){|acc, (k,v)| acc[$1] = v if k =~ /^http_(.*)/i; acc}
   end
 end
