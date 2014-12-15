@@ -57,3 +57,4 @@ helpers do
     env.inject({}){|acc, (k,v)| acc[$1] = v if k =~ /^http_(.*)/i; acc}
   end
 end
+
