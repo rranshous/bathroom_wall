@@ -51,6 +51,15 @@ get '/:url' do
   Graffiti.filter(:url => url).all.map(&:to_h).to_json
 end
 
+delete '/:url' do
+  url = params[:url]
+  found = Graffiti.filter(:url => url).all
+  if found.length > 0
+    found.each(&:delete)
+  end
+  halt 204
+end
+
 
 helpers do
   def request_headers
