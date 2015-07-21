@@ -30,8 +30,7 @@ class Graffiti < Sequel::Model
 end
 
 get '/' do
-  content_type :json
-  Graffiti.all.map(&:to_h).to_json
+  redirect 'https://github.com/rranshous/bathroom_wall'
 end
 
 post '/:url' do
